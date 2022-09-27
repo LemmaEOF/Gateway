@@ -4,7 +4,7 @@ import gay.lemmaeof.gateway.api.Trigger;
 import gay.lemmaeof.gateway.api.TriggerConfig;
 import gay.lemmaeof.gateway.api.TrionComponent;
 import gay.lemmaeof.gateway.impl.TriggerConfigImpl;
-import gay.lemmaeof.gateway.registry.GatewayComponents;
+import gay.lemmaeof.gateway.init.GatewayComponents;
 import net.fabricmc.fabric.api.util.NbtType;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
@@ -29,7 +29,7 @@ public class TriggerHolderItem extends Item {
 	public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
 		ItemStack stack = user.getStackInHand(hand);
 		if (world.isClient) return TypedActionResult.success(stack);
-		TrionComponent component = GatewayComponents.TRION_COMPONENT.get(user);
+		TrionComponent component = GatewayComponents.TRION.get(user);
 		if (component.isTriggerActive()) {
 			component.deactivateTrigger();
 			user.getItemCooldownManager().set(this, 60);

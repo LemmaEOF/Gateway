@@ -3,7 +3,7 @@ package gay.lemmaeof.gateway.trigger;
 import gay.lemmaeof.gateway.api.Trigger;
 import gay.lemmaeof.gateway.api.TriggerItem;
 import gay.lemmaeof.gateway.api.TrionComponent;
-import gay.lemmaeof.gateway.registry.GatewayItems;
+import gay.lemmaeof.gateway.init.GatewayItems;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
 

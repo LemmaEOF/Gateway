@@ -1,12 +1,11 @@
 package gay.lemmaeof.gateway.mixin;
 
-import gay.lemmaeof.gateway.Gateway;
 import gay.lemmaeof.gateway.api.TrionComponent;
 import gay.lemmaeof.gateway.combat.TrionDamageSource;
 import gay.lemmaeof.gateway.api.TrionShield;
-import gay.lemmaeof.gateway.registry.GatewayComponents;
-import gay.lemmaeof.gateway.registry.GatewayParticles;
-import gay.lemmaeof.gateway.registry.GatewayStatusEffects;
+import gay.lemmaeof.gateway.init.GatewayComponents;
+import gay.lemmaeof.gateway.init.GatewayParticles;
+import gay.lemmaeof.gateway.init.GatewayStatusEffects;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -39,7 +38,7 @@ public abstract class MixinPlayerEntity extends LivingEntity {
 
 	@Inject(method = "tick", at = @At("TAIL"))
 	private void tickTrion(CallbackInfo info) {
-		TrionComponent comp = GatewayComponents.TRION_COMPONENT.get(this);
+		TrionComponent comp = GatewayComponents.TRION.get(this);
 		if (!world.isClient) comp.tick();
 	}
 
@@ -48,7 +47,7 @@ public abstract class MixinPlayerEntity extends LivingEntity {
 	private void doTrionDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> info) {
 		//trion won't protect you against the void, unblockable+piercing damage, or magic
 		if ((source.isUnblockable() && source.bypassesArmor()) || source.isOutOfWorld() || source.isMagic()) return;
-		TrionComponent comp = GatewayComponents.TRION_COMPONENT.get(this);
+		TrionComponent comp = GatewayComponents.TRION.get(this);
 		//TODO: better way to fix so virtual combat can't be used to cheese PvE?
 		if (hasStatusEffect(GatewayStatusEffects.VIRTUAL_COMBAT) && !(source instanceof TrionDamageSource)) return;
 
@@ -78,7 +77,7 @@ public abstract class MixinPlayerEntity extends LivingEntity {
 	@Inject(method = "attack", at = @At("HEAD"), cancellable = true)
 	private void doTrionAttack(Entity target, CallbackInfo info) {
 		if (isCreative()) return;
-		TrionComponent comp = GatewayComponents.TRION_COMPONENT.get(this);
+		TrionComponent comp = GatewayComponents.TRION.get(this);
 		if (comp.isTriggerActive()
 				&& hasStatusEffect(GatewayStatusEffects.VIRTUAL_COMBAT)
 				&& target instanceof LivingEntity
@@ -107,7 +106,7 @@ public abstract class MixinPlayerEntity extends LivingEntity {
 
 	@Inject(method = "getHurtSound", at = @At("HEAD"), cancellable = true)
 	private void injectTrionSound(DamageSource source, CallbackInfoReturnable<SoundEvent> info) {
-		TrionComponent comp = GatewayComponents.TRION_COMPONENT.get(this);
+		TrionComponent comp = GatewayComponents.TRION.get(this);
 		if (comp.isTriggerActive()) {
 			//TODO: trion damage sound effect here
 		}

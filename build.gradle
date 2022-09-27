@@ -14,6 +14,7 @@ repositories {
 	maven { url "https://repo.sleeping.town" } // Sleeping Town maven - home of Lib39
 	maven { url "https://ladysnake.jfrog.io/artifactory/mods" } // Ladysnake maven - home of Cardinal Components
 	maven { url "https://maven.jamieswhiteshirt.com/libs-release" }
+	maven { url "https://maven.terraformersmc.com/" }
 }
 
 dependencies {
@@ -28,6 +29,7 @@ dependencies {
 	modImplementation include("dev.onyxstudios.cardinal-components-api:cardinal-components-item:${project.cardinal_version}")
 	modImplementation include("dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${project.cardinal_version}")
 	modImplementation include("com.jamieswhiteshirt:reach-entity-attributes:${project.reach_attributes_version}")
+	modImplementation include("dev.emi:trinkets:${trinkets_version}") { transitive = false }
 }
 
 processResources {

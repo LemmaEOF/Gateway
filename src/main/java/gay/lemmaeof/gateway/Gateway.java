@@ -1,11 +1,8 @@
 package gay.lemmaeof.gateway;
 
 import com.mojang.serialization.Lifecycle;
-import dev.onyxstudios.cca.api.v3.component.ComponentKey;
-import dev.onyxstudios.cca.api.v3.component.ComponentRegistry;
 import gay.lemmaeof.gateway.api.Trigger;
-import gay.lemmaeof.gateway.api.TrionComponent;
-import gay.lemmaeof.gateway.registry.*;
+import gay.lemmaeof.gateway.init.*;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
@@ -37,6 +34,6 @@ public class Gateway implements ModInitializer {
 		GatewaySounds.init();
 		GatewayStatusEffects.init();
 		GatewayTriggers.init();
-//		EntityComponentCallback.event(PlayerEntity.class).register((player, container) -> container.put(TRION_COMPONENT, new TrionComponentImpl(player)));
+		GatewayMechanics.init();
 	}
 }

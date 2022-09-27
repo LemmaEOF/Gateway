@@ -2,7 +2,7 @@ package gay.lemmaeof.gateway.item;
 
 import gay.lemmaeof.gateway.api.TriggerConfig;
 import gay.lemmaeof.gateway.api.TriggerItem;
-import gay.lemmaeof.gateway.registry.GatewayItems;
+import gay.lemmaeof.gateway.init.GatewayItems;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ArmorMaterial;

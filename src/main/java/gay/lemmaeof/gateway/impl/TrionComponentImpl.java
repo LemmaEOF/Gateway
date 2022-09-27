@@ -1,13 +1,12 @@
 package gay.lemmaeof.gateway.impl;
 
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
-import gay.lemmaeof.gateway.Gateway;
 import gay.lemmaeof.gateway.api.Trigger;
 import gay.lemmaeof.gateway.api.TriggerConfig;
 import gay.lemmaeof.gateway.api.TriggerItem;
 import gay.lemmaeof.gateway.api.TrionComponent;
 import gay.lemmaeof.gateway.item.TrionArmorItem;
-import gay.lemmaeof.gateway.registry.*;
+import gay.lemmaeof.gateway.init.*;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -216,7 +215,7 @@ public class TrionComponentImpl implements TrionComponent, AutoSyncedComponent {
 
 	private void sync() {
 		if (!this.getPlayer().getWorld().isClient) {
-			GatewayComponents.TRION_COMPONENT.sync(this);
+			GatewayComponents.TRION.sync(this);
 		}
 	}
 

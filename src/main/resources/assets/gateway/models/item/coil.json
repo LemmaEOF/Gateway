@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "gateway:item/blank_coil",
+    "layer1": "gateway:item/coil_glow"
+  }
+}

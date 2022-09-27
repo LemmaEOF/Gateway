@@ -2,7 +2,7 @@ package gay.lemmaeof.gateway.item;
 
 import gay.lemmaeof.gateway.api.TrionComponent;
 import gay.lemmaeof.gateway.api.TrionShield;
-import gay.lemmaeof.gateway.registry.GatewayComponents;
+import gay.lemmaeof.gateway.init.GatewayComponents;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -41,7 +41,7 @@ public class RaygustItem extends TrionSwordItem implements TrionShield {
 
 	@Override
 	public void tickShield(PlayerEntity wielder, ItemStack stack) {
-		TrionComponent component = GatewayComponents.TRION_COMPONENT.get(wielder);
+		TrionComponent component = GatewayComponents.TRION.get(wielder);
 		int currentDamage = getShieldDamage(stack);
 		if (component.isTriggerActive() && wielder.world.getTime() % 60 == 0 && currentDamage != 0) {
 			component.setTrion(component.getTrion() - 2, true);

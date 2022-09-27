@@ -1,10 +1,9 @@
 package gay.lemmaeof.gateway.mixin;
 
-import gay.lemmaeof.gateway.Gateway;
 import gay.lemmaeof.gateway.api.TriggerItem;
 import gay.lemmaeof.gateway.api.TrionComponent;
 import gay.lemmaeof.gateway.item.TrionArmorItem;
-import gay.lemmaeof.gateway.registry.GatewayComponents;
+import gay.lemmaeof.gateway.init.GatewayComponents;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -33,8 +32,8 @@ public abstract class MixinItemStack {
 	@Inject(method = "inventoryTick", at = @At("HEAD"))
 	private void injectInvTick(World world, Entity entity, int slot, boolean selected, CallbackInfo info) {
 		if (getItem() instanceof TriggerItem && !(getItem() instanceof TrionArmorItem)) {
-			if (GatewayComponents.TRION_COMPONENT.maybeGet(entity).isPresent()) {
-				TrionComponent comp = GatewayComponents.TRION_COMPONENT.get(entity);
+			if (GatewayComponents.TRION.maybeGet(entity).isPresent()) {
+				TrionComponent comp = GatewayComponents.TRION.get(entity);
 				if (!comp.isTriggerActive()) {
 					((PlayerEntity) entity).getInventory().setStack(slot, ((TriggerItem) getItem()).unequip((ItemStack)(Object)this));
 				}

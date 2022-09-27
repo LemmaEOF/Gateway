@@ -3,10 +3,11 @@
   "package": "gay.lemmaeof.gateway.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "MixinEntity",
     "MixinDamageSource",
+    "MixinEntity",
     "MixinItemEntity",
     "MixinItemStack",
+    "MixinLootManager",
     "MixinPlayerEntity",
     "MixinSlot"
   ],

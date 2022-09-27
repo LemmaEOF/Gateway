@@ -20,5 +20,17 @@
   "death.attack.trion": "%1$s was slain by %2$s's trion",
   "death.attack.gateway.item": "%1$s was slain by %2$s's trion using %3$s",
   "effect.gateway.virtual_combat": "Virtual Combat",
-  "itemGroup.gateway.gateway": "Gateway"
+  "itemGroup.gateway.gateway": "Gateway",
+
+  "item.gateway.coil": "Coil",
+  "item.gateway.recovery_order": "Recovery Order",
+  "tooltip.gateway.type": "- %s",
+  "tooltip.gateway.more": "Press §aSHIFT§7 for info",
+  "tooltip.gateway.number": "Numbered Coil",
+  "tooltip.gateway.params": "Parameters:",
+  "tooltip.gateway.power": "- Power: %s%%",
+  "tooltip.gateway.stability": "- Stability: %s%%",
+  "gateway.coil.illegal": "Illegal Coil",
+  "gateway.coil.key": "Key Coil",
+  "gateway.coil.mirai": "Mirai Coil"
 }

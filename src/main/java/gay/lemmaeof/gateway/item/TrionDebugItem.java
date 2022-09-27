@@ -1,7 +1,7 @@
 package gay.lemmaeof.gateway.item;
 
 import gay.lemmaeof.gateway.api.TrionComponent;
-import gay.lemmaeof.gateway.registry.GatewayComponents;
+import gay.lemmaeof.gateway.init.GatewayComponents;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -20,7 +20,7 @@ public class TrionDebugItem extends Item {
 	@Override
 	public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
 		if (world.isClient) return TypedActionResult.success(user.getStackInHand(hand));
-		TrionComponent comp = GatewayComponents.TRION_COMPONENT.get(user);
+		TrionComponent comp = GatewayComponents.TRION.get(user);
 		comp.setMaxTrion(maxToSet);
 		return TypedActionResult.success(user.getStackInHand(hand));
 	}

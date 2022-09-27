@@ -1,9 +1,8 @@
 package gay.lemmaeof.gateway.mixin;
 
-import gay.lemmaeof.gateway.Gateway;
 import gay.lemmaeof.gateway.api.TrionComponent;
-import gay.lemmaeof.gateway.registry.GatewayComponents;
-import gay.lemmaeof.gateway.registry.GatewayTriggers;
+import gay.lemmaeof.gateway.init.GatewayComponents;
+import gay.lemmaeof.gateway.init.GatewayTriggers;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Hand;
@@ -18,7 +17,7 @@ import java.util.Optional;
 public class MixinEntity {
 	@Inject(method = "isInvisible", at = @At("HEAD"), cancellable = true)
 	private void injectInvisibility(CallbackInfoReturnable<Boolean> info) {
-		Optional<TrionComponent> compOpt = GatewayComponents.TRION_COMPONENT.maybeGet(this);
+		Optional<TrionComponent> compOpt = GatewayComponents.TRION.maybeGet(this);
 		if (compOpt.isPresent() && (Entity)(Object)this instanceof LivingEntity entity) {
 			TrionComponent comp = compOpt.get();
 			if (comp.isTriggerActive()

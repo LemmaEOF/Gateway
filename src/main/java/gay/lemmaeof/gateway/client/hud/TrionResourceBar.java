@@ -2,8 +2,8 @@ package gay.lemmaeof.gateway.client.hud;
 
 import gay.lemmaeof.gateway.Gateway;
 import gay.lemmaeof.gateway.api.TrionComponent;
-import gay.lemmaeof.gateway.registry.GatewayComponents;
-import gay.lemmaeof.gateway.registry.GatewayStatusEffects;
+import gay.lemmaeof.gateway.init.GatewayComponents;
+import gay.lemmaeof.gateway.init.GatewayStatusEffects;
 import gay.lemmaeof.impulse.api.ResourceBar;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.util.Identifier;
@@ -22,36 +22,36 @@ public class TrionResourceBar implements ResourceBar {
 
 	@Override
 	public float getCurrentBarFill(ClientPlayerEntity player) {
-		return GatewayComponents.TRION_COMPONENT.get(player).getTrion() / (float) unitsPerBar;
+		return GatewayComponents.TRION.get(player).getTrion() / (float) unitsPerBar;
 	}
 
 	@Override
 	public float getTopBarPercentage(ClientPlayerEntity player) {
-		return (GatewayComponents.TRION_COMPONENT.get(player).getMaxTrion() % unitsPerBar) / (float) unitsPerBar;
+		return (GatewayComponents.TRION.get(player).getMaxTrion() % unitsPerBar) / (float) unitsPerBar;
 	}
 
 	@Override
 	public int getTotalSegments(ClientPlayerEntity player) {
-		return (int) Math.ceil(GatewayComponents.TRION_COMPONENT.get(player).getMaxTrion() / (float) unitsPerBar);
+		return (int) Math.ceil(GatewayComponents.TRION.get(player).getMaxTrion() / (float) unitsPerBar);
 	}
 
 	@Override
 	public int getBarColor(ClientPlayerEntity player) {
 		if (player.hasStatusEffect(GatewayStatusEffects.VIRTUAL_COMBAT)) return virtualColor;
-		TrionComponent comp = GatewayComponents.TRION_COMPONENT.get(player);
+		TrionComponent comp = GatewayComponents.TRION.get(player);
 		if (comp.isBurst()) return burstColor;
 		return normalColor;
 	}
 
 	@Override
 	public boolean isBarVisible(ClientPlayerEntity player) {
-		TrionComponent comp = GatewayComponents.TRION_COMPONENT.get(player);
+		TrionComponent comp = GatewayComponents.TRION.get(player);
 		return comp.getTrion() >= comp.getMaxTrion();
 	}
 
 	@Override
 	public int getBarValue(ClientPlayerEntity player) {
-		return GatewayComponents.TRION_COMPONENT.get(player).getTrion();
+		return GatewayComponents.TRION.get(player).getTrion();
 	}
 
 	@Override

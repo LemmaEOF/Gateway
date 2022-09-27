@@ -1,4 +1,4 @@
-package gay.lemmaeof.gateway.registry;
+package gay.lemmaeof.gateway.init;
 
 import gay.lemmaeof.gateway.Gateway;
 import net.minecraft.sound.SoundEvent;

@@ -2,7 +2,7 @@ package gay.lemmaeof.gateway.item;
 
 import gay.lemmaeof.gateway.api.TriggerItem;
 import gay.lemmaeof.gateway.api.TrionComponent;
-import gay.lemmaeof.gateway.registry.GatewayComponents;
+import gay.lemmaeof.gateway.init.GatewayComponents;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -23,7 +23,7 @@ public class BailOutItem extends Item implements TriggerItem {
 	public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
 		ItemStack stack = user.getStackInHand(hand);
 		if (world.isClient) return TypedActionResult.success(stack);
-		if (GatewayComponents.TRION_COMPONENT.get(user).isTriggerActive()) {
+		if (GatewayComponents.TRION.get(user).isTriggerActive()) {
 			user.setCurrentHand(hand);
 			return TypedActionResult.success(stack);
 		}
@@ -44,7 +44,7 @@ public class BailOutItem extends Item implements TriggerItem {
 	public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
 		if (world.isClient) return stack;
 		if (user instanceof ServerPlayerEntity player) {
-			TrionComponent component = GatewayComponents.TRION_COMPONENT.get(player);
+			TrionComponent component = GatewayComponents.TRION.get(player);
 			BlockPos spawnPos = player.getSpawnPointPosition();
 			if (spawnPos == null) spawnPos = player.getWorld().getSpawnPos();
 			if (player.getBlockPos().isWithinDistance(spawnPos, 2000)) {

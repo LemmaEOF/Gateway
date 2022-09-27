@@ -18,6 +18,9 @@
     "entrypoints": {
       "init": [
         "gay.lemmaeof.gateway.Gateway"
+      ],
+      "cardinal-components": [
+        "gay.lemmaeof.gateway.GatewayComponents"
       ]
     },
     "depends": [
@@ -29,6 +32,7 @@
   },
   "mixin": "mixins.gateway.json",
   "cardinal-components": [
-    "gateway:trion"
+    "gateway:trion",
+    "gateway:coil"
   ]
 }

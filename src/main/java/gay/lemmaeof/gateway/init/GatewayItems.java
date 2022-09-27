@@ -1,4 +1,4 @@
-package gay.lemmaeof.gateway.registry;
+package gay.lemmaeof.gateway.init;
 
 import gay.lemmaeof.gateway.Gateway;
 import gay.lemmaeof.gateway.hooks.CustomToolMaterial;
@@ -31,6 +31,8 @@ public class GatewayItems {
 	public static final Item KOGETSU = register(new TrionSwordItem(TRION_WEAPON, 5, -2.8f, 1f, triggerSettings()), "kogetsu");
 	public static final Item SCORPION = register(new TrionSwordItem(TRION_WEAPON, 3, -1.4f, -0.5f, triggerSettings()), "scorpion");
 	public static final Item TRION_SHIELD = register(new TrionShieldItem(triggerSettings()), "trion_shield");
+	public static final Item COIL = register(new CoilItem(new Item.Settings().group(Gateway.GATEWAY_GROUP)), "coil");
+	public static final Item RECOVERY_ORDER = register(new Item(new Item.Settings().group(Gateway.GATEWAY_GROUP)), "recovery_order");
 
 	public static void init() { }
 
