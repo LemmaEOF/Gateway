@@ -1,0 +1,24 @@
+{
+  "item.gateway.trigger_holder": "Trigger Holder",
+  "item.gateway.trion_helmet": "Trion Helmet",
+  "item.gateway.trion_chestplate": "Trion Chestplate",
+  "item.gateway.trion_leggings": "Trion Leggings",
+  "item.gateway.trion_boots": "Trion Boots",
+  "item.gateway.bail_out": "Bail Out",
+  "item.gateway.raygust": "Raygust",
+  "item.gateway.kogetsu": "Kogetsu",
+  "item.gateway.scorpion": "Scorpion",
+  "item.gateway.trion_shield": "Trion Shield",
+
+  "trigger.gateway.chameleon": "Chameleon",
+
+  "tooltip.gateway.triggers": "Equipped Triggers:",
+  "subtitles.gateway.transformation.on": "Player transforms",
+  "subtitles.gateway.transformation.off": "Player un-transforms",
+  "subtitles.gateway.transformation.charge": "Player's transformation charges",
+
+  "death.attack.trion": "%1$s was slain by %2$s's trion",
+  "death.attack.gateway.item": "%1$s was slain by %2$s's trion using %3$s",
+  "effect.gateway.virtual_combat": "Virtual Combat",
+  "itemGroup.gateway.gateway": "Gateway"
+}

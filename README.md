@@ -1,9 +1,9 @@
 <img src="icon.png" align="right" width="180px"/>
 
-# Fabric Starter
+# Gateway
 
 
-[>> Downloads <<](https://github.com/CottonMC/FabricStarter/releases)
+[>> Downloads <<](https://github.com/LemmaEOF/Gateway/releases)
 
 *Get set up!*
 

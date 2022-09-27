@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "package": "gay.lemmaeof.gateway.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "MixinEntity",
+    "MixinDamageSource",
+    "MixinItemEntity",
+    "MixinItemStack",
+    "MixinPlayerEntity",
+    "MixinSlot"
+  ],
+  "client": [
+    "MixinPlayerEntityRenderer"
+  ]
+}

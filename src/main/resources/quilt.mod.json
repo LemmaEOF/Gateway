@@ -1,23 +1,23 @@
 {
   "schema_version": 1,
   "quilt_loader": {
-    "group": "io.github.cottonmc",
-    "id": "starter",
+    "group": "gay.lemmaeof",
+    "id": "gateway",
     "version": "${version}",
     "metadata": {
-      "name": "Fabric Starter",
-      "icon": "assets/starter/icon.png",
-      "description": "Template for starting out Fabric mods",
-      "license": "MIT",
+      "name": "Gateway",
+      "icon": "assets/gateway/icon.png",
+      "description": "A mod about harnessing the power of other dimensions",
+      "license": "BSD-3-Clause",
       "contact": {
-        "sources": "https://github.com/CottonMC/FabricStarter"
+        "sources": "https://github.com/LemmaEOF/Gateway"
       }
     },
     "intermediate_mappings": "net.fabricmc:intermediary",
     "environment": "*",
     "entrypoints": {
       "init": [
-        "io.github.cottonmc.starter.FabricStarter"
+        "gay.lemmaeof.gateway.Gateway"
       ]
     },
     "depends": [
@@ -27,5 +27,8 @@
       }
     ]
   },
-  "mixin": "mixins.starter.json"
+  "mixin": "mixins.gateway.json",
+  "cardinal-components": [
+    "gateway:trion"
+  ]
 }

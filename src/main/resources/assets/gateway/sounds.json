@@ -1,0 +1,23 @@
+{
+  "transformation.on": {
+    "category": "players",
+    "sounds": [
+      "gateway:transformation/on"
+    ],
+    "subtitle": "subtitles.gateway.transformation.on"
+  },
+  "transformation.off": {
+    "category": "players",
+    "sounds": [
+      "gateway:transformation/off"
+    ],
+    "subtitle": "subtitles.gateway.transformation.of"
+  },
+  "transformation.charge": {
+    "category": "players",
+    "sounds": [
+      "gateway:transformation/charge"
+    ],
+    "subtitle": "subtitles.gateway.transformation.charge"
+  }
+}
