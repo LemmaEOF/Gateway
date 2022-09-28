@@ -9,16 +9,15 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 public class GatewayTriggers {
-	public static final Trigger BAIL_OUT = register(new BailOutTrigger(), "bail_out");
-	public static final Trigger CHAMELEON = register(new ChameleonTrigger(), "chameleon");
-	public static final Trigger RAYGUST = register(new SimpleTrigger(GatewayItems.RAYGUST), "raygust");
-	public static final Trigger KOGETSU = register(new SimpleTrigger(GatewayItems.KOGETSU), "kogetsu");
-	public static final Trigger SCORPION = register(new SimpleTrigger(GatewayItems.SCORPION), "scorpion");
-	public static final Trigger SHIELD = register(new SimpleTrigger(GatewayItems.TRION_SHIELD), "shield");
+	public static final BailOutTrigger BAIL_OUT = new BailOutTrigger();
+	public static final ChameleonTrigger CHAMELEON = new ChameleonTrigger();
+	public static final SimpleTrigger RAYGUST = new SimpleTrigger(GatewayItems.RAYGUST);
+	public static final SimpleTrigger KOGETSU = new SimpleTrigger(GatewayItems.KOGETSU);
+	public static final SimpleTrigger SCORPION = new SimpleTrigger(GatewayItems.SCORPION);
+	public static final SimpleTrigger SHIELD = new SimpleTrigger(GatewayItems.TRION_SHIELD);
 
-	public static void init() { }
-
-	private static Trigger register(Trigger trigger, String name) {
-		return Registry.register(Gateway.TRIGGERS, new Identifier(Gateway.MODID, name), trigger);
+	public static void init() {
+		Gateway.AUTOREG.autoRegister(Gateway.TRIGGERS, GatewayTriggers.class, Trigger.class);
 	}
+
 }

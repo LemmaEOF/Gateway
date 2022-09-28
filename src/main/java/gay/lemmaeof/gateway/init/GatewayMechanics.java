@@ -9,7 +9,6 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.condition.EntityPropertiesLootCondition;
 import net.minecraft.loot.condition.LootConditionType;
-import net.minecraft.loot.condition.RandomChanceLootCondition;
 import net.minecraft.loot.condition.RandomChanceWithLootingLootCondition;
 import net.minecraft.loot.context.LootContext;
 import net.minecraft.loot.context.LootContextTypes;
@@ -21,17 +20,15 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 public class GatewayMechanics {
-
-
 	public static final TagKey<EntityType<?>> COIL_DROPPING = TagKey.of(Registry.ENTITY_TYPE_KEY, new Identifier(Gateway.MODID, "coil_dropping"));
 
-	public static final LootConditionType RECOVERY_ORDER_CONDITION = register("recovery_order",
-			new LootConditionType(new RecoveryOrderLootCondition.Serializer()));
+	public static final LootConditionType RECOVERY_ORDER = new LootConditionType(new RecoveryOrderLootCondition.Serializer());
 
-	public static final LootFunctionType RANDOM_COIL = register("random_coil",
-			new LootFunctionType(new RandomCoilLootFunction.Serializer()));
+	public static final LootFunctionType RANDOM_COIL = new LootFunctionType(new RandomCoilLootFunction.Serializer());
 
 	public static void init() {
+		Gateway.AUTOREG.autoRegister(Registry.LOOT_CONDITION_TYPE, GatewayMechanics.class, LootConditionType.class);
+		Gateway.AUTOREG.autoRegister(Registry.LOOT_FUNCTION_TYPE, GatewayMechanics.class, LootFunctionType.class);
 		LootTableEvents.MODIFY.register(((resourceManager, lootManager, id, tableBuilder, source) -> {
 			if (((LootTableBuilderAccessor) tableBuilder).getType() == LootContextTypes.ENTITY) {
 				LootPool.Builder builder  = new LootPool.Builder()
@@ -46,13 +43,5 @@ public class GatewayMechanics {
 				tableBuilder.pool(builder);
 			}
 		}));
-	}
-
-	private static LootConditionType register(String name, LootConditionType type) {
-		return Registry.register(Registry.LOOT_CONDITION_TYPE, new Identifier(Gateway.MODID, name), type);
-	}
-
-	private static LootFunctionType register(String name, LootFunctionType type) {
-		return Registry.register(Registry.LOOT_FUNCTION_TYPE, new Identifier(Gateway.MODID, name), type);
 	}
 }

@@ -21,7 +21,7 @@ public class RecoveryOrderLootCondition implements LootCondition {
 	
 	@Override
 	public LootConditionType getType() {
-		return GatewayMechanics.RECOVERY_ORDER_CONDITION;
+		return GatewayMechanics.RECOVERY_ORDER;
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 package gay.lemmaeof.gateway;
 
 import com.mojang.serialization.Lifecycle;
+import com.unascribed.lib39.core.api.AutoRegistry;
 import gay.lemmaeof.gateway.api.Trigger;
 import gay.lemmaeof.gateway.init.*;
 import net.minecraft.item.ItemGroup;
@@ -26,6 +27,8 @@ public class Gateway implements ModInitializer {
 	public static final RegistryKey<Registry<Trigger>> TRIGGERS_KEY = RegistryKey.ofRegistry(new Identifier(MODID, "triggers"));
 	public static final Registry<Trigger> TRIGGERS = new DefaultedRegistry<>("trion:empty", TRIGGERS_KEY, Lifecycle.stable(), null);
 
+	public static final AutoRegistry AUTOREG = AutoRegistry.of(MODID);
+
 	//green trion color is 0x5fec94, yellow trion color is 0xe4e072, takamoma-2 color is 0x388e9a
 
 	public static final Logger logger = LogManager.getLogger(MODID);
@@ -38,5 +41,6 @@ public class Gateway implements ModInitializer {
 		GatewayStatusEffects.init();
 		GatewayTriggers.init();
 		GatewayMechanics.init();
+		GatewayEntities.init();
 	}
 }
