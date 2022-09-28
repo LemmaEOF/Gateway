@@ -19,8 +19,11 @@
       "init": [
         "gay.lemmaeof.gateway.Gateway"
       ],
+      "client_init": [
+        "gay.lemmaeof.gateway.GatewayClient"
+      ],
       "cardinal-components": [
-        "gay.lemmaeof.gateway.GatewayComponents"
+        "gay.lemmaeof.gateway.init.GatewayComponents"
       ]
     },
     "depends": [

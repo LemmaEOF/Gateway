@@ -32,5 +32,7 @@
   "tooltip.gateway.stability": "- Stability: %s%%",
   "gateway.coil.illegal": "Illegal Coil",
   "gateway.coil.key": "Key Coil",
-  "gateway.coil.mirai": "Mirai Coil"
+  "gateway.coil.mirai": "Mirai Coil",
+
+  "trinkets.slot.misc.coil": "Coil"
 }

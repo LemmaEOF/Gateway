@@ -1,5 +1,6 @@
 package gay.lemmaeof.gateway.impl;
 
+import dev.onyxstudios.cca.api.v3.component.ComponentKey;
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
 import dev.onyxstudios.cca.api.v3.item.ItemComponent;
 import gay.lemmaeof.gateway.api.CoilComponent;
@@ -8,29 +9,30 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 
 public class MachineCoilComponent extends ItemComponent implements CoilComponent, AutoSyncedComponent {
-	private int power = 75;
-	private int stability = 100;
-	private CoilType type = CoilType.LEGAL;
-	private int stabilityTicks = 0;
 
-	public MachineCoilComponent(ItemStack stack) {
-		super(stack);
+	public MachineCoilComponent(ItemStack stack, ComponentKey<CoilComponent> key) {
+		super(stack, key);
+		setPower(75);
+		setStability(100);
+		setType(CoilType.LEGAL);
+		setStabilityTicks(0);
 	}
 
 	public void initialize(CoilComponent coil) {
-		this.power = coil.getPower();
-		this.stability = coil.getStability();
-		this.type = coil.getType();
+		setPower(coil.getPower());
+		setStability(coil.getStability());
+		setType(coil.getType());
 	}
 
 	public boolean use() {
-		if (type == CoilType.MIRAI) return false; //無限のエネルギ
-		stabilityTicks++;
-		if (stabilityTicks >= type.getDecayRate()) {
-			stability--;
-			stabilityTicks = 0;
+		//TODO: rework for legal coils
+		if (getType() == CoilType.MIRAI) return false; //無限のエネルギ
+		setStabilityTicks(getStabilityTicks() + 1);
+		if (getStabilityTicks() >= getType().getDecayRate()) {
+			setStability(getStability() - 1);
+			setStabilityTicks(0);
 		}
-		return stability <= 0;
+		return getStability() <= 0;
 	}
 
 	@Override
@@ -40,31 +42,37 @@ public class MachineCoilComponent extends ItemComponent implements CoilComponent
 
 	@Override
 	public int getPower() {
-		return power;
+		return getOrCreateRootTag().getInt("Power");
 	}
 
 	@Override
 	public int getStability() {
-		return stability;
+		return getOrCreateRootTag().getInt("Stability");
 	}
 
 	@Override
 	public CoilType getType() {
-		return type;
+		return CoilType.values()[getOrCreateRootTag().getInt("Type")];
 	}
 
-	public void readStackNbt(NbtCompound tag) {
-		this.power = tag.getInt("Power");
-		this.stability = tag.getInt("Stability");
-		this.type = CoilType.values()[tag.getInt("Type")];
-		this.stabilityTicks = tag.getInt("StabilityTicks");
+	private int getStabilityTicks() {
+		return getOrCreateRootTag().getInt("StabilityTicks");
 	}
 
-	public void writeStackNbt(NbtCompound tag) {
-		tag.putInt("Power", power);
-		tag.putInt("Stability", stability);
-		tag.putInt("Type", type.ordinal());
-		tag.putInt("StabilityTicks", stabilityTicks);
+	private void setPower(int power) {
+		getOrCreateRootTag().putInt("Power", power);
+	}
+
+	private void setStability(int stability) {
+		getOrCreateRootTag().putInt("Stability", stability);
+	}
+
+	private void setType(CoilType type) {
+		getOrCreateRootTag().putInt("Type", type.ordinal());
+	}
+
+	private void setStabilityTicks(int stabilityTicks) {
+		getOrCreateRootTag().putInt("StabilityTicks", stabilityTicks);
 	}
 }
 

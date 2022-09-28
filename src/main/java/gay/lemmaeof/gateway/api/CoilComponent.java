@@ -6,6 +6,7 @@ import dev.onyxstudios.cca.api.v3.component.ComponentV3;
  * a coil, or a coil-powered machine
  */
 //todo: just for coils and separate comp for machines?
+//TODO: heat system
 public interface CoilComponent extends ComponentV3 {
 	/**
 	 * @return true if this is a machine using a replacable coil, false if this is a coil itself

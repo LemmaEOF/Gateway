@@ -33,6 +33,7 @@ public class GatewayItems {
 	public static final Item TRION_SHIELD = register(new TrionShieldItem(triggerSettings()), "trion_shield");
 	public static final Item COIL = register(new CoilItem(new Item.Settings().group(Gateway.GATEWAY_GROUP)), "coil");
 	public static final Item RECOVERY_ORDER = register(new Item(new Item.Settings().group(Gateway.GATEWAY_GROUP)), "recovery_order");
+	public static final Item WATER_GUN = register(new WaterGunItem(new Item.Settings().group(Gateway.GATEWAY_GROUP)), "water_gun");
 
 	public static void init() { }
 

@@ -46,7 +46,7 @@ public class TrionResourceBar implements ResourceBar {
 	@Override
 	public boolean isBarVisible(ClientPlayerEntity player) {
 		TrionComponent comp = GatewayComponents.TRION.get(player);
-		return comp.getTrion() >= comp.getMaxTrion();
+		return comp.getTrion() < comp.getMaxTrion();
 	}
 
 	@Override

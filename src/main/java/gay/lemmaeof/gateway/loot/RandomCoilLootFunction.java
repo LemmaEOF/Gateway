@@ -28,11 +28,10 @@ public class RandomCoilLootFunction implements LootFunction {
 	public ItemStack apply(ItemStack stack, LootContext context) {
 		if (GatewayComponents.COIL.isProvidedBy(stack)) {
 			CoilComponent component = GatewayComponents.COIL.get(stack);
-			if (component instanceof PlainCoilComponent) {
-				PlainCoilComponent comp = (PlainCoilComponent) component;
+			if (component instanceof PlainCoilComponent comp) {
 				//only legal or illegal coils from recovery orders
 				if (context.getRandom().nextInt(4) == 0) {
-					comp.setPower(context.getRandom().nextInt(20) + 40);
+					comp.setPower(context.getRandom().nextInt(20) + 10);
 					comp.setStability(100);
 					comp.setType(CoilType.LEGAL);
 				} else {

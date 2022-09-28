@@ -6,6 +6,7 @@ import dev.emi.trinkets.api.TrinketsApi;
 import dev.emi.trinkets.api.client.TrinketRenderer;
 import dev.emi.trinkets.api.client.TrinketRendererRegistry;
 import gay.lemmaeof.gateway.api.CoilComponent;
+import gay.lemmaeof.gateway.api.CoilType;
 import gay.lemmaeof.gateway.client.hud.TrionResourceBar;
 import gay.lemmaeof.gateway.client.model.DynamicArmorBakedModel;
 import gay.lemmaeof.gateway.client.particle.TransformationParticle;
@@ -13,6 +14,7 @@ import gay.lemmaeof.gateway.client.particle.TrionDamageParticle;
 import gay.lemmaeof.gateway.init.GatewayComponents;
 import gay.lemmaeof.gateway.init.GatewayItems;
 import gay.lemmaeof.gateway.init.GatewayParticles;
+import gay.lemmaeof.gateway.init.GatewayStatusEffects;
 import gay.lemmaeof.impulse.api.ResourceBars;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -72,7 +74,22 @@ public class GatewayClient implements ClientModInitializer {
 		}, GatewayItems.TRION_HELMET, GatewayItems.TRION_CHESTPLATE, GatewayItems.TRION_LEGGINGS, GatewayItems.TRION_BOOTS);
 		ColorProviderRegistry.ITEM.register((stack, index) -> {
 			if (index == 0) return 0xFFFFFF;
-			return getCoilColor(stack);
+			PlayerEntity player = MinecraftClient.getInstance().player;
+			CoilComponent comp = GatewayComponents.COIL.get(stack);
+			if (player != null && !stack.getOrCreateNbt().getBoolean("AlwaysGlow") && !comp.getType().isAlwaysCharged()) {
+				//TODO: more efficient way to do this? lib39-sandman?
+				if (player.hasStatusEffect(GatewayStatusEffects.CHARGED)) {
+					for (int i = 0; i < player.getInventory().size(); i++) {
+						if (player.getInventory().getStack(i) == stack) {
+							return getCoilColor(comp);
+						}
+					}
+				}
+			} else {
+				return getCoilColor(comp);
+			}
+			return 0;
+
 		}, GatewayItems.COIL);
 
 		ModelPredicateProviderRegistry.register(GatewayItems.TRION_SHIELD, new Identifier("blocking"), (stack, world, entity, i) ->
@@ -131,8 +148,7 @@ public class GatewayClient implements ClientModInitializer {
 		});
 	}
 
-	public static int getCoilColor(ItemStack stack) {
-		CoilComponent component = GatewayComponents.COIL.get(stack);
+	public static int getCoilColor(CoilComponent component) {
 		float hue = component.getStability() / 200f;
 		float powerMul = component.getPower() / 100f;
 		float decis = System.nanoTime() / 100_000_000f;

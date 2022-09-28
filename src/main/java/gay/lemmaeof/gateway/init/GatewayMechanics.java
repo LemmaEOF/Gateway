@@ -3,19 +3,22 @@ package gay.lemmaeof.gateway.init;
 import gay.lemmaeof.gateway.Gateway;
 import gay.lemmaeof.gateway.loot.RandomCoilLootFunction;
 import gay.lemmaeof.gateway.loot.RecoveryOrderLootCondition;
+import gay.lemmaeof.gateway.mixin.LootTableBuilderAccessor;
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.minecraft.entity.EntityType;
 import net.minecraft.loot.LootPool;
+import net.minecraft.loot.condition.EntityPropertiesLootCondition;
 import net.minecraft.loot.condition.LootConditionType;
+import net.minecraft.loot.condition.RandomChanceLootCondition;
+import net.minecraft.loot.condition.RandomChanceWithLootingLootCondition;
+import net.minecraft.loot.context.LootContext;
+import net.minecraft.loot.context.LootContextTypes;
 import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.loot.function.LootFunctionType;
+import net.minecraft.predicate.entity.EntityPredicate;
 import net.minecraft.tag.TagKey;
-import net.minecraft.util.Holder;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class GatewayMechanics {
 
@@ -28,26 +31,21 @@ public class GatewayMechanics {
 	public static final LootFunctionType RANDOM_COIL = register("random_coil",
 			new LootFunctionType(new RandomCoilLootFunction.Serializer()));
 
-	private static final List<Identifier> tableIds = new ArrayList<>();
-
-
 	public static void init() {
 		LootTableEvents.MODIFY.register(((resourceManager, lootManager, id, tableBuilder, source) -> {
-			if (tableIds.contains(id)) {
+			if (((LootTableBuilderAccessor) tableBuilder).getType() == LootContextTypes.ENTITY) {
 				LootPool.Builder builder  = new LootPool.Builder()
+						.conditionally(EntityPropertiesLootCondition.builder(
+								LootContext.EntityTarget.THIS, new EntityPredicate.Builder().m_fydefeme(COIL_DROPPING))
+						)
+						.conditionally(RandomChanceWithLootingLootCondition.builder(0.3f, 0.1f))
 						.conditionally(RecoveryOrderLootCondition.INSTANCE)
+						//tags don't load before loot tables anymore so we have to check this at roll time
 						.with(ItemEntry.builder(GatewayItems.COIL).build())
 						.apply(RandomCoilLootFunction.INSTANCE);
 				tableBuilder.pool(builder);
 			}
 		}));
-	}
-
-	public static void prepareTableIds() {
-		tableIds.clear();
-		for (Holder<EntityType<?>> holder : Registry.ENTITY_TYPE.getTagOrEmpty(COIL_DROPPING)) {
-			tableIds.add(holder.value().getLootTableId());
-		}
 	}
 
 	private static LootConditionType register(String name, LootConditionType type) {

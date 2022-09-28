@@ -54,7 +54,7 @@ public class TriggerHolderItem extends Item {
 		super.appendTooltip(stack, world, tooltip, context);
 		TriggerConfig config = getConfig(stack);
 		if (!config.getEquippedTriggers().isEmpty()) {
-			tooltip.add(Text.translatable("tooltip.trion.triggers").formatted(Formatting.GRAY));
+			tooltip.add(Text.translatable("tooltip.gateway.triggers").formatted(Formatting.GRAY));
 			for (Trigger trigger : config.getEquippedTriggers()) {
 				tooltip.add(Text.literal("  - ").formatted(Formatting.GRAY).append(Text.translatable(trigger.getTranslationKey()).formatted(Formatting.GREEN)).formatted(Formatting.GRAY));
 			}
