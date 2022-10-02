@@ -7,21 +7,19 @@ import net.minecraft.util.Formatting;
 
 //TODO: other coil types? unenum it?
 public enum CoilType {
-	//TODO: rework with heat system
-	LEGAL(null, 60, false),
-	ILLEGAL(Text.translatable("gateway.coil.illegal").formatted(Formatting.RED), 20, false),
-	KEY(Text.translatable("gateway.coil.key").formatted(Formatting.AQUA), 240, true),
-	MIRAI(Text.translatable("gateway.coil.mirai").formatted(Formatting.GREEN), -1, true);
+	LEGAL(null, 20, false),
+	ILLEGAL(Text.translatable("gateway.coil.illegal").formatted(Formatting.RED), 50, false),
+	KEY(Text.translatable("gateway.coil.key").formatted(Formatting.AQUA), 100, true),
+	MIRAI(Text.translatable("gateway.coil.mirai").formatted(Formatting.GREEN), 0, true);
 
 	@Nullable
 	private final Text name;
-	private final int decayRate;
+	private final int maxHeat;
 	private final boolean alwaysCharged;
 
-
-	CoilType(@Nullable Text name, int decayRate, boolean alwaysCharged) {
+	CoilType(@Nullable Text name, int maxHeat, boolean alwaysCharged) {
 		this.name = name;
-		this.decayRate = decayRate;
+		this.maxHeat = maxHeat;
 		this.alwaysCharged = alwaysCharged;
 	}
 
@@ -30,8 +28,8 @@ public enum CoilType {
 		return name;
 	}
 
-	public int getDecayRate() {
-		return decayRate;
+	public int getMaxHeat() {
+		return maxHeat;
 	}
 
 	public boolean isAlwaysCharged() {

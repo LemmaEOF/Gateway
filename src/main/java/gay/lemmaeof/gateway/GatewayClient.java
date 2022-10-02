@@ -1,20 +1,16 @@
 package gay.lemmaeof.gateway;
 
 import com.mojang.datafixers.util.Pair;
-import dev.emi.trinkets.api.Trinket;
-import dev.emi.trinkets.api.TrinketsApi;
 import dev.emi.trinkets.api.client.TrinketRenderer;
 import dev.emi.trinkets.api.client.TrinketRendererRegistry;
-import gay.lemmaeof.gateway.api.CoilComponent;
-import gay.lemmaeof.gateway.api.CoilType;
+import gay.lemmaeof.gateway.client.color.CoilColorProvider;
 import gay.lemmaeof.gateway.client.hud.TrionResourceBar;
 import gay.lemmaeof.gateway.client.model.DynamicArmorBakedModel;
+import gay.lemmaeof.gateway.client.model.SocketedModelPredicate;
 import gay.lemmaeof.gateway.client.particle.TransformationParticle;
 import gay.lemmaeof.gateway.client.particle.TrionDamageParticle;
-import gay.lemmaeof.gateway.init.GatewayComponents;
 import gay.lemmaeof.gateway.init.GatewayItems;
 import gay.lemmaeof.gateway.init.GatewayParticles;
-import gay.lemmaeof.gateway.init.GatewayStatusEffects;
 import gay.lemmaeof.impulse.api.ResourceBars;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -36,11 +32,8 @@ import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.DyeableArmorItem;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.registry.Registry;
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.base.api.entrypoint.client.ClientModInitializer;
@@ -72,31 +65,13 @@ public class GatewayClient implements ClientModInitializer {
 			}
 			return 0xFFFFFF;
 		}, GatewayItems.TRION_HELMET, GatewayItems.TRION_CHESTPLATE, GatewayItems.TRION_LEGGINGS, GatewayItems.TRION_BOOTS);
-		ColorProviderRegistry.ITEM.register((stack, index) -> {
-			if (index == 0) return 0xFFFFFF;
-			PlayerEntity player = MinecraftClient.getInstance().player;
-			CoilComponent comp = GatewayComponents.COIL.get(stack);
-			if (player != null && !stack.getOrCreateNbt().getBoolean("AlwaysGlow") && !comp.getType().isAlwaysCharged()) {
-				//TODO: more efficient way to do this? lib39-sandman?
-				if (player.hasStatusEffect(GatewayStatusEffects.CHARGED)) {
-					for (int i = 0; i < player.getInventory().size(); i++) {
-						if (player.getInventory().getStack(i) == stack) {
-							return getCoilColor(comp);
-						}
-					}
-				}
-			} else {
-				return getCoilColor(comp);
-			}
-			return 0;
-
-		}, GatewayItems.COIL);
+		ColorProviderRegistry.ITEM.register(CoilColorProvider.INSTANCE, GatewayItems.COIL);
 
 		ModelPredicateProviderRegistry.register(GatewayItems.TRION_SHIELD, new Identifier("blocking"), (stack, world, entity, i) ->
-				//TODO: returns true whether this one is the one doing the blocking or not, but picking a specific hand would make it break the model
 				entity != null && entity.isUsingItem() && entity.getActiveItem() == stack ? 1.0F : 0.0F);
 		ModelPredicateProviderRegistry.register(GatewayItems.RAYGUST, new Identifier("blocking"), (stack, world, entity, i) ->
 				entity != null && entity.isUsingItem() && entity.getActiveItem() == stack ? 1.0F : 0.0F);
+		ModelPredicateProviderRegistry.register(GatewayItems.WATER_GUN, new Identifier(Gateway.MODID, "socketed"), SocketedModelPredicate.INSTANCE);
 
 		ParticleFactoryRegistry.getInstance().register(GatewayParticles.TRANSFORMATION, TransformationParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register(GatewayParticles.TRION_DAMAGE, TrionDamageParticle.Factory::new);
@@ -146,14 +121,6 @@ public class GatewayClient implements ClientModInitializer {
 				MinecraftClient.getInstance().getItemRenderer().renderItem(stack, ModelTransformation.Mode.FIXED, light, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers, 0);
 			}
 		});
-	}
-
-	public static int getCoilColor(CoilComponent component) {
-		float hue = component.getStability() / 200f;
-		float powerMul = component.getPower() / 100f;
-		float decis = System.nanoTime() / 100_000_000f;
-		float value = (float) (Math.sin(decis * powerMul) + 2) / 3;
-		return MathHelper.hsvToRgb(hue, 1f, value);
 	}
 
 	static {

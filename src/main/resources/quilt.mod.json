@@ -36,6 +36,6 @@
   "mixin": "mixins.gateway.json",
   "cardinal-components": [
     "gateway:trion",
-    "gateway:coil"
+    "gateway:coil_holder"
   ]
 }

@@ -3,9 +3,10 @@ package gay.lemmaeof.gateway.loot;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
-import gay.lemmaeof.gateway.api.CoilComponent;
+import gay.lemmaeof.gateway.api.Coil;
+import gay.lemmaeof.gateway.api.CoilHolderComponent;
 import gay.lemmaeof.gateway.api.CoilType;
-import gay.lemmaeof.gateway.impl.PlainCoilComponent;
+import gay.lemmaeof.gateway.impl.DirectCoilComponent;
 import gay.lemmaeof.gateway.init.GatewayComponents;
 import gay.lemmaeof.gateway.init.GatewayMechanics;
 import net.minecraft.item.ItemStack;
@@ -26,9 +27,9 @@ public class RandomCoilLootFunction implements LootFunction {
 
 	@Override
 	public ItemStack apply(ItemStack stack, LootContext context) {
-		if (GatewayComponents.COIL.isProvidedBy(stack)) {
-			CoilComponent component = GatewayComponents.COIL.get(stack);
-			if (component instanceof PlainCoilComponent comp) {
+		if (GatewayComponents.COIL_HOLDER.isProvidedBy(stack)) {
+			CoilHolderComponent component = GatewayComponents.COIL_HOLDER.get(stack);
+			if (component instanceof DirectCoilComponent comp) {
 				//only legal or illegal coils from recovery orders
 				if (context.getRandom().nextInt(4) == 0) {
 					comp.setPower(context.getRandom().nextInt(20) + 10);
@@ -43,7 +44,6 @@ public class RandomCoilLootFunction implements LootFunction {
 		}
 		return stack;
 	}
-
 
 	public static class Serializer implements JsonSerializer<RandomCoilLootFunction> {
 		public void toJson(JsonObject jsonObject, RandomCoilLootFunction function, JsonSerializationContext jsonSerializationContext) {

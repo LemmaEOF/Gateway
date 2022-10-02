@@ -1,7 +1,8 @@
 package gay.lemmaeof.gateway.item;
 
 import dev.emi.trinkets.api.TrinketItem;
-import gay.lemmaeof.gateway.api.CoilComponent;
+import gay.lemmaeof.gateway.api.Coil;
+import gay.lemmaeof.gateway.api.CoilHolderComponent;
 import gay.lemmaeof.gateway.init.GatewayComponents;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -26,12 +27,15 @@ public class CoilItem extends TrinketItem {
 	@Override
 	public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
 		super.appendTooltip(stack, world, tooltip, context);
-		CoilComponent component = GatewayComponents.COIL.get(stack);
+		CoilHolderComponent holder = GatewayComponents.COIL_HOLDER.get(stack);
+		//coil item will always have a coil
+		if (holder.getCoil().isEmpty()) throw new IllegalStateException("cardinal is broken");
+		Coil coil = holder.getCoil().get();
 		if (Screen.hasShiftDown()) {
 			tooltip.add(Text.translatable("tooltip.gateway.params").formatted(Formatting.GRAY));
-			tooltip.add(Text.translatable("tooltip.gateway.power", component.getPower()).formatted(Formatting.GRAY));
-			tooltip.add(Text.translatable("tooltip.gateway.stability", component.getStability()).formatted(Formatting.GRAY));
-			Text type = component.getType().getName();
+			tooltip.add(Text.translatable("tooltip.gateway.power", coil.getPower()).formatted(Formatting.GRAY));
+			tooltip.add(Text.translatable("tooltip.gateway.stability", coil.getStability()).formatted(Formatting.GRAY));
+			Text type = coil.getType().getName();
 			if (type != null) {
 				tooltip.add(Text.translatable("tooltip.gateway.type", type).formatted(Formatting.GRAY));
 			}
