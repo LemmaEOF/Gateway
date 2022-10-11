@@ -3,7 +3,6 @@ package gay.lemmaeof.gateway.item;
 import gay.lemmaeof.gateway.api.TrionComponent;
 import gay.lemmaeof.gateway.api.TrionShield;
 import gay.lemmaeof.gateway.init.GatewayComponents;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolMaterial;
@@ -54,10 +53,4 @@ public class RaygustItem extends TrionSwordItem implements TrionShield {
 		return 200;
 	}
 
-	@Override
-	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
-		if (entity instanceof PlayerEntity && !world.isClient) {
-			tickShield((PlayerEntity) entity, stack);
-		}
-	}
 }

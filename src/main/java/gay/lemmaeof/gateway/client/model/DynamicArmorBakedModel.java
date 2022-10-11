@@ -1,6 +1,6 @@
 package gay.lemmaeof.gateway.client.model;
 
-import gay.lemmaeof.gateway.GatewayClient;
+import gay.lemmaeof.gateway.client.GatewayClient;
 import gay.lemmaeof.gateway.hooks.DynamicArmorMaterial;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

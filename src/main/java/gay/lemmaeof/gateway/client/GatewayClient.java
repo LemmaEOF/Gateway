@@ -1,14 +1,17 @@
-package gay.lemmaeof.gateway;
+package gay.lemmaeof.gateway.client;
 
 import com.mojang.datafixers.util.Pair;
 import dev.emi.trinkets.api.client.TrinketRenderer;
 import dev.emi.trinkets.api.client.TrinketRendererRegistry;
+import gay.lemmaeof.gateway.Gateway;
 import gay.lemmaeof.gateway.client.color.CoilColorProvider;
 import gay.lemmaeof.gateway.client.hud.TrionResourceBar;
 import gay.lemmaeof.gateway.client.model.DynamicArmorBakedModel;
 import gay.lemmaeof.gateway.client.model.SocketedModelPredicate;
 import gay.lemmaeof.gateway.client.particle.TransformationParticle;
 import gay.lemmaeof.gateway.client.particle.TrionDamageParticle;
+import gay.lemmaeof.gateway.client.render.GatewayProjectileEntityRenderer;
+import gay.lemmaeof.gateway.init.GatewayEntities;
 import gay.lemmaeof.gateway.init.GatewayItems;
 import gay.lemmaeof.gateway.init.GatewayParticles;
 import gay.lemmaeof.impulse.api.ResourceBars;
@@ -17,6 +20,8 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
@@ -121,6 +126,8 @@ public class GatewayClient implements ClientModInitializer {
 				MinecraftClient.getInstance().getItemRenderer().renderItem(stack, ModelTransformation.Mode.FIXED, light, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers, 0);
 			}
 		});
+
+		EntityRendererRegistry.register(GatewayEntities.TRION_PROJECTILE, GatewayProjectileEntityRenderer::new);
 	}
 
 	static {

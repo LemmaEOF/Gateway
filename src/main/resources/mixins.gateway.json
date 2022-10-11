@@ -6,7 +6,6 @@
     "LootTableBuilderAccessor",
     "MixinDamageSource",
     "MixinEntity",
-    "MixinItemEntity",
     "MixinItemStack",
     "MixinPlayerEntity",
     "MixinSlot"

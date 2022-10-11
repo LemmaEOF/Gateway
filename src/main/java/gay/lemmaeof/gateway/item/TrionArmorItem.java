@@ -1,16 +1,18 @@
 package gay.lemmaeof.gateway.item;
 
 import gay.lemmaeof.gateway.api.TriggerConfig;
-import gay.lemmaeof.gateway.api.TriggerItem;
+import gay.lemmaeof.gateway.api.TriggerShifter;
 import gay.lemmaeof.gateway.init.GatewayItems;
 import net.minecraft.enchantment.Enchantments;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.DyeableArmorItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.world.World;
 
-public class TrionArmorItem extends DyeableArmorItem implements TriggerItem {
+public class TrionArmorItem extends DyeableArmorItem implements TriggerShifter {
 	public TrionArmorItem(ArmorMaterial material, EquipmentSlot slot, Settings settings) {
 		super(material, slot, settings);
 	}
@@ -18,7 +20,7 @@ public class TrionArmorItem extends DyeableArmorItem implements TriggerItem {
 	@Override
 	public ItemStack equip(ItemStack previous, TriggerConfig config) {
 		int color = config.getColor(this.slot);
-		ItemStack equipped = TriggerItem.super.equip(previous, config);
+		ItemStack equipped = TriggerShifter.super.equip(previous, config);
 		NbtCompound tag = equipped.getOrCreateNbt();
 		tag.putBoolean("Unbreakable", true); //so armor doesn't get damaged, since ArmorItem overrides that
 		equipped.addEnchantment(Enchantments.BINDING_CURSE, 1); //since equipment slots override canRemove
@@ -30,19 +32,19 @@ public class TrionArmorItem extends DyeableArmorItem implements TriggerItem {
 	}
 
 	public static ItemStack getTrionStack(EquipmentSlot slot, ItemStack previous, TriggerConfig config) {
-		TriggerItem item;
+		TriggerShifter item;
 		switch(slot) {
 			case HEAD:
-				item = (TriggerItem) GatewayItems.TRION_HELMET;
+				item = GatewayItems.TRION_HELMET;
 				break;
 			case CHEST:
-				item = (TriggerItem) GatewayItems.TRION_CHESTPLATE;
+				item = GatewayItems.TRION_CHESTPLATE;
 				break;
 			case LEGS:
-				item = (TriggerItem) GatewayItems.TRION_LEGGINGS;
+				item = GatewayItems.TRION_LEGGINGS;
 				break;
 			case FEET:
-				item = (TriggerItem) GatewayItems.TRION_BOOTS;
+				item = GatewayItems.TRION_BOOTS;
 				break;
 			default:
 				return previous;
@@ -53,5 +55,10 @@ public class TrionArmorItem extends DyeableArmorItem implements TriggerItem {
 	@Override
 	public boolean hasGlint(ItemStack stack) {
 		return false;
+	}
+
+	@Override
+	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
+		entityInventoryTick(stack, world, entity, slot, selected);
 	}
 }

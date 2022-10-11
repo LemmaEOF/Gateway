@@ -4,11 +4,16 @@ import dev.onyxstudios.cca.api.v3.item.ItemComponent;
 import gay.lemmaeof.gateway.api.Coil;
 import gay.lemmaeof.gateway.api.CoilHolderComponent;
 import gay.lemmaeof.gateway.init.GatewayComponents;
+
+import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
+import net.minecraft.world.World;
 
 import java.util.Optional;
+
+import javax.annotation.Nullable;
 
 public class SocketedCoilComponent extends ItemComponent implements CoilHolderComponent {
 	private ItemStack coil = ItemStack.EMPTY;
@@ -21,12 +26,22 @@ public class SocketedCoilComponent extends ItemComponent implements CoilHolderCo
 	}
 
 	@Override
-	public Optional<Coil> getCoil() {
+	public Coil getCoil() {
 		updateComponent();
 		if (GatewayComponents.COIL_HOLDER.isProvidedBy(coil)) {
 			return GatewayComponents.COIL_HOLDER.get(coil).getCoil();
 		}
-		return Optional.empty();
+		return null;
+	}
+
+	@Override
+	public boolean tryUse(World world, @Nullable Entity user) {
+		Coil currentSocket = getCoil();
+		if (currentSocket != null && currentSocket.isCharged()) {
+			currentSocket.use(world, user);
+			return true;
+		}
+		return false;
 	}
 
 	public void socketCoil(ItemStack coil) {
@@ -54,10 +69,5 @@ public class SocketedCoilComponent extends ItemComponent implements CoilHolderCo
 		if (getOrCreateRootTag().contains("Coil", NbtElement.COMPOUND_TYPE)) {
 			coil = ItemStack.fromNbt(getOrCreateRootTag().getCompound("Coil"));
 		}
-	}
-
-	@Override
-	public void tick() {
-		//todo impl
 	}
 }

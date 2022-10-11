@@ -1,7 +1,7 @@
 package gay.lemmaeof.gateway.trigger;
 
 import gay.lemmaeof.gateway.api.Trigger;
-import gay.lemmaeof.gateway.api.TriggerItem;
+import gay.lemmaeof.gateway.api.TriggerShifter;
 import gay.lemmaeof.gateway.api.TrionComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Hand;
@@ -18,7 +18,7 @@ public class ChameleonTrigger implements Trigger {
 	}
 
 	@Override
-	public TriggerItem getItem() {
-		return TriggerItem.NONE;
+	public TriggerShifter getItem() {
+		return TriggerShifter.NONE;
 	}
 }

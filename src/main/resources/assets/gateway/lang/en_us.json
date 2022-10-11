@@ -17,8 +17,10 @@
   "subtitles.gateway.transformation.off": "Player un-transforms",
   "subtitles.gateway.transformation.charge": "Player's transformation charges",
 
-  "death.attack.trion": "%1$s was slain by %2$s's trion",
-  "death.attack.gateway.item": "%1$s was slain by %2$s's trion using %3$s",
+  "death.attack.gateway.trion": "%1$s was slain by %2$s's trion",
+  "death.attack.gateway.trion.item": "%1$s was slain by %2$s's trion using %3$s",
+  "death.attack.gateway.jet": "%1$s was sliced by %2$s's water jet",
+  "death.attack.gateway.jet.item": "%1$s was sliced by %2$s's water jet using %3$s",
   "effect.gateway.virtual_combat": "Virtual Combat",
   "itemGroup.gateway.gateway": "Gateway",
 

@@ -1,6 +1,6 @@
 package gay.lemmaeof.gateway.item;
 
-import gay.lemmaeof.gateway.api.TriggerItem;
+import gay.lemmaeof.gateway.api.TriggerShifter;
 import gay.lemmaeof.gateway.api.TrionComponent;
 import gay.lemmaeof.gateway.api.TrionShield;
 import gay.lemmaeof.gateway.init.GatewayComponents;
@@ -13,7 +13,7 @@ import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
 import net.minecraft.world.World;
 
-public class TrionShieldItem extends Item implements TrionShield, TriggerItem {
+public class TrionShieldItem extends Item implements TrionShield, TriggerShifter {
 	public TrionShieldItem(Settings settings) {
 		super(settings);
 	}
@@ -60,6 +60,7 @@ public class TrionShieldItem extends Item implements TrionShield, TriggerItem {
 		if (entity instanceof PlayerEntity && !world.isClient) {
 			tickShield((PlayerEntity) entity, stack);
 		}
+		TriggerShifter.super.entityInventoryTick(stack, world, entity, slot, selected);
 	}
 
 	@Override

@@ -1,7 +1,7 @@
 package gay.lemmaeof.gateway.mixin;
 
 import gay.lemmaeof.gateway.api.TrionComponent;
-import gay.lemmaeof.gateway.combat.TrionDamageSource;
+import gay.lemmaeof.gateway.hooks.CustomDamageSource;
 import gay.lemmaeof.gateway.api.TrionShield;
 import gay.lemmaeof.gateway.init.GatewayComponents;
 import gay.lemmaeof.gateway.init.GatewayParticles;
@@ -49,7 +49,7 @@ public abstract class MixinPlayerEntity extends LivingEntity {
 		if ((source.isUnblockable() && source.bypassesArmor()) || source.isOutOfWorld() || source.isMagic()) return;
 		TrionComponent comp = GatewayComponents.TRION.get(this);
 		//TODO: better way to fix so virtual combat can't be used to cheese PvE?
-		if (hasStatusEffect(GatewayStatusEffects.VIRTUAL_COMBAT) && !(source instanceof TrionDamageSource)) return;
+		if (hasStatusEffect(GatewayStatusEffects.VIRTUAL_COMBAT) && !(source instanceof CustomDamageSource custom && custom.isTrion())) return;
 
 		if (comp.isTriggerActive()) {
 			if (amount > 0.0F && blockedByShield(source)) {
@@ -65,7 +65,7 @@ public abstract class MixinPlayerEntity extends LivingEntity {
 				info.setReturnValue(false);
 				return;
 			}
-			int trionCost = source.bypassesArmor() || source instanceof TrionDamageSource ? (int) Math.ceil(amount * 4) : (int) Math.ceil(amount * 2.5); //TODO: rebalance?
+			int trionCost = source.bypassesArmor() || (source instanceof CustomDamageSource custom && custom.isTrion()) ? (int) Math.ceil(amount * 4) : (int) Math.ceil(amount * 2.5); //TODO: rebalance?
 			comp.setTrion(comp.getTrion() - trionCost);
 			if (!world.isClient) {
 				((ServerWorld) world).spawnParticles(GatewayParticles.TRION_DAMAGE, getX(), getY() + 1.25f, getZ(), trionCost * 2, 0.0F, 0.0F, 0.0F, 0.25F);

@@ -1,7 +1,7 @@
 package gay.lemmaeof.gateway.trigger;
 
 import gay.lemmaeof.gateway.api.Trigger;
-import gay.lemmaeof.gateway.api.TriggerItem;
+import gay.lemmaeof.gateway.api.TriggerShifter;
 import gay.lemmaeof.gateway.api.TrionComponent;
 import net.minecraft.item.Item;
 
@@ -18,7 +18,7 @@ public class SimpleTrigger implements Trigger {
 	}
 
 	@Override
-	public TriggerItem getItem() {
-		return (TriggerItem)item;
+	public TriggerShifter getItem() {
+		return (TriggerShifter)item;
 	}
 }

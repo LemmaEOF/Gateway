@@ -12,6 +12,6 @@ public class SocketedModelPredicate implements UnclampedModelPredicateProvider {
 
 	@Override
 	public float unclampedCall(ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity holder, int seed) {
-		return GatewayComponents.COIL_HOLDER.get(stack).getCoil().isPresent()? 1 : 0;
+		return GatewayComponents.COIL_HOLDER.get(stack).hasCoil()? 1 : 0;
 	}
 }

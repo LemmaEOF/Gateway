@@ -20,7 +20,7 @@
         "gay.lemmaeof.gateway.Gateway"
       ],
       "client_init": [
-        "gay.lemmaeof.gateway.GatewayClient"
+        "gay.lemmaeof.gateway.client.GatewayClient"
       ],
       "cardinal-components": [
         "gay.lemmaeof.gateway.init.GatewayComponents"

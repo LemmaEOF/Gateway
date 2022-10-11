@@ -1,11 +1,12 @@
 package gay.lemmaeof.gateway.entity;
 
-import gay.lemmaeof.gateway.combat.TrionDamageSource;
+import gay.lemmaeof.gateway.hooks.CustomDamageSource;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.Packet;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
@@ -41,7 +42,7 @@ public class GatewayProjectileEntity extends PersistentProjectileEntity {
 	@Override
 	protected void onEntityHit(EntityHitResult entityHitResult) {
 		if (isExplosive()) {
-			world.createExplosion(this, new TrionDamageSource("trion", getOwner()), new ExplosionBehavior(), this.getX(), this.getY(), this.getZ(), 4, false, Explosion.DestructionType.BREAK);
+			world.createExplosion(this, new CustomDamageSource("trion", getOwner()), new ExplosionBehavior(), this.getX(), this.getY(), this.getZ(), 4, false, Explosion.DestructionType.BREAK);
 		}
 	}
 
@@ -49,7 +50,7 @@ public class GatewayProjectileEntity extends PersistentProjectileEntity {
 	protected void onBlockCollision(BlockState state) {
 		super.onBlockCollision(state);
 		if (isExplosive()) {
-			world.createExplosion(this, new TrionDamageSource("trion", getOwner()), new ExplosionBehavior(), this.getX(), this.getY(), this.getZ(), 4, false, Explosion.DestructionType.BREAK);
+			world.createExplosion(this, new CustomDamageSource("trion", getOwner()), new ExplosionBehavior(), this.getX(), this.getY(), this.getZ(), 4, false, Explosion.DestructionType.BREAK);
 		}
 		this.remove(RemovalReason.DISCARDED);
 	}

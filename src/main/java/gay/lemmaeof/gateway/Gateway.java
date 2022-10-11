@@ -16,13 +16,12 @@ import org.quiltmc.qsl.item.group.api.QuiltItemGroup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 public class Gateway implements ModInitializer {
 	public static final String MODID = "gateway";
 	public static final ItemGroup GATEWAY_GROUP = QuiltItemGroup.createWithIcon(new Identifier(MODID, "gateway"), () -> new ItemStack(GatewayItems.TRIGGER_HOLDER));
 
 	public static final RegistryKey<Registry<Trigger>> TRIGGERS_KEY = RegistryKey.ofRegistry(new Identifier(MODID, "triggers"));
-	public static final Registry<Trigger> TRIGGERS = new DefaultedRegistry<>("trion:empty", TRIGGERS_KEY, Lifecycle.stable(), null);
+	public static final Registry<Trigger> TRIGGERS = new DefaultedRegistry<>("gateway:empty", TRIGGERS_KEY, Lifecycle.stable(), null);
 
 	public static final AutoRegistry AUTOREG = AutoRegistry.of(MODID);
 

@@ -32,12 +32,12 @@ public class GatewayMechanics {
 		LootTableEvents.MODIFY.register(((resourceManager, lootManager, id, tableBuilder, source) -> {
 			if (((LootTableBuilderAccessor) tableBuilder).getType() == LootContextTypes.ENTITY) {
 				LootPool.Builder builder  = new LootPool.Builder()
+						//tags don't load before loot tables anymore so we have to check this at roll time
 						.conditionally(EntityPropertiesLootCondition.builder(
 								LootContext.EntityTarget.THIS, new EntityPredicate.Builder().m_fydefeme(COIL_DROPPING))
 						)
 						.conditionally(RandomChanceWithLootingLootCondition.builder(0.3f, 0.1f))
 						.conditionally(RecoveryOrderLootCondition.INSTANCE)
-						//tags don't load before loot tables anymore so we have to check this at roll time
 						.with(ItemEntry.builder(GatewayItems.COIL).build())
 						.apply(RandomCoilLootFunction.INSTANCE);
 				tableBuilder.pool(builder);

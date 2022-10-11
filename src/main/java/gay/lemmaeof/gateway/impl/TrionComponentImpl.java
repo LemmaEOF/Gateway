@@ -3,7 +3,7 @@ package gay.lemmaeof.gateway.impl;
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
 import gay.lemmaeof.gateway.api.Trigger;
 import gay.lemmaeof.gateway.api.TriggerConfig;
-import gay.lemmaeof.gateway.api.TriggerItem;
+import gay.lemmaeof.gateway.api.TriggerShifter;
 import gay.lemmaeof.gateway.api.TrionComponent;
 import gay.lemmaeof.gateway.item.TrionArmorItem;
 import gay.lemmaeof.gateway.init.*;
@@ -65,7 +65,7 @@ public class TrionComponentImpl implements TrionComponent, AutoSyncedComponent {
 				int nextInvSlot = 0;
 				//TODO: any way to improve this?
 				for (Trigger trigger : triggers) {
-					if (trigger.getItem() == TriggerItem.NONE) continue;
+					if (trigger.getItem() == TriggerShifter.NONE) continue;
 					for (int i = nextInvSlot; i < 9; i++) {
 						ItemStack stack = inv.getStack(i);
 						if (stack.getItem() == GatewayItems.TRIGGER_HOLDER) { //TODO: allow other definitions of holders?
@@ -146,8 +146,8 @@ public class TrionComponentImpl implements TrionComponent, AutoSyncedComponent {
 		triggerActive = false;
 		for (EquipmentSlot slot : EquipmentSlot.values()) {
 			ItemStack equipped = player.getEquippedStack(slot);
-			if (equipped.getItem() instanceof TriggerItem) {
-				player.equipStack(slot, ((TriggerItem)equipped.getItem()).unequip(equipped));
+			if (equipped.getItem() instanceof TriggerShifter) {
+				player.equipStack(slot, ((TriggerShifter)equipped.getItem()).unequip(equipped));
 			}
 		}
 		player.world.playSound(null, player.getBlockPos(), GatewaySounds.TRANSFORMATION_OFF, SoundCategory.PLAYERS, .8f, 1f);
@@ -215,7 +215,7 @@ public class TrionComponentImpl implements TrionComponent, AutoSyncedComponent {
 
 	private void sync() {
 		if (!this.getPlayer().getWorld().isClient) {
-			GatewayComponents.TRION.sync(this);
+			GatewayComponents.TRION.sync(player);
 		}
 	}
 

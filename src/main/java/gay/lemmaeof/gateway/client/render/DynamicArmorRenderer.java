@@ -1,4 +1,4 @@
-package gay.lemmaeof.gateway.client;
+package gay.lemmaeof.gateway.client.render;
 
 import gay.lemmaeof.gateway.hooks.DynamicArmorMaterial;
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;

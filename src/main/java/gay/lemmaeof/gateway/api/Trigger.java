@@ -14,8 +14,8 @@ public interface Trigger {
 		public void tick(TrionComponent component) { }
 
 		@Override
-		public TriggerItem getItem() {
-			return TriggerItem.NONE;
+		public TriggerShifter getItem() {
+			return TriggerShifter.NONE;
 		}
 	});
 
@@ -28,9 +28,9 @@ public interface Trigger {
 
 	/**
 	 * Used during trigger activation to equip a player.
-	 * @return The item form of this Trigger, or {@link TriggerItem#NONE} if it doesn't have an item and is purely passive.
+	 * @return The item form of this Trigger, or {@link TriggerShifter#NONE} if it doesn't have an item and is purely passive.
 	 */
-	TriggerItem getItem();
+	TriggerShifter getItem();
 
 	/**
 	 * @return The translation key for this trigger.

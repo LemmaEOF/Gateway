@@ -1,6 +1,6 @@
 package gay.lemmaeof.gateway.mixin;
 
-import gay.lemmaeof.gateway.api.TriggerItem;
+import gay.lemmaeof.gateway.api.TriggerShifter;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.slot.Slot;
@@ -17,6 +17,6 @@ public abstract class MixinSlot {
 	//TODO: will this totally work? Spinnery's definitely gonna fuck with this...
 	@Inject(method = "canTakeItems", at = @At("HEAD"), cancellable = true)
 	private void blockTriggerRemoval(PlayerEntity player, CallbackInfoReturnable<Boolean> info) {
-		if (getStack().getItem() instanceof TriggerItem && !player.isCreative()) info.setReturnValue(false);
+		if (getStack().getItem() instanceof TriggerShifter && !player.isCreative()) info.setReturnValue(false);
 	}
 }

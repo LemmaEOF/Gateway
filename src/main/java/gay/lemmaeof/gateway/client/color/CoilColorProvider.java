@@ -16,23 +16,14 @@ public class CoilColorProvider implements ItemColorProvider {
 	@Override
 	public int getColor(ItemStack stack, int index) {
 		if (index == 0) return 0xFFFFFF;
-		PlayerEntity player = MinecraftClient.getInstance().player;
 		CoilHolderComponent comp = GatewayComponents.COIL_HOLDER.get(stack);
-		if (comp.getCoil().isEmpty()) return 0xFFFFFF;
-		Coil coil = comp.getCoil().get();
-		if (player != null && !stack.getOrCreateNbt().getBoolean("AlwaysGlow") && !coil.getType().isAlwaysCharged()) {
-			//TODO: more efficient way to do this? lib39-sandman?
-			if (player.hasStatusEffect(GatewayStatusEffects.CHARGED)) {
-				for (int i = 0; i < player.getInventory().size(); i++) {
-					if (player.getInventory().getStack(i) == stack) {
-						return getCoilColor(coil);
-					}
-				}
-			}
+		if (!comp.hasCoil()) return 0xFFFFFF;
+		Coil coil = comp.getCoil();
+		if (stack.getOrCreateNbt().getBoolean("AlwaysGlow") || coil.isCharged()) {
+				return getCoilColor(coil);
 		} else {
-			return getCoilColor(coil);
+			return 0;
 		}
-		return 0;
 	}
 
 	public static int getCoilColor(Coil coil) {

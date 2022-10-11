@@ -1,7 +1,7 @@
 package gay.lemmaeof.gateway.trigger;
 
 import gay.lemmaeof.gateway.api.Trigger;
-import gay.lemmaeof.gateway.api.TriggerItem;
+import gay.lemmaeof.gateway.api.TriggerShifter;
 import gay.lemmaeof.gateway.api.TrionComponent;
 import gay.lemmaeof.gateway.init.GatewayItems;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -26,8 +26,8 @@ public class BailOutTrigger implements Trigger {
 	}
 
 	@Override
-	public TriggerItem getItem() {
-		return (TriggerItem) GatewayItems.BAIL_OUT;
+	public TriggerShifter getItem() {
+		return (TriggerShifter) GatewayItems.BAIL_OUT;
 	}
 
 }

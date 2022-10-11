@@ -31,6 +31,7 @@ public class GatewayItems {
 	public static final TrionSwordItem KOGETSU = new TrionSwordItem(TRION_WEAPON, 5, -2.8f, 1f, triggerSettings());
 	public static final TrionSwordItem SCORPION = new TrionSwordItem(TRION_WEAPON, 3, -1.4f, -0.5f, triggerSettings());
 	public static final TrionShieldItem TRION_SHIELD = new TrionShieldItem(triggerSettings());
+	public static final TrionGunItem TEST_GUN = new TrionGunItem(triggerSettings());
 	public static final CoilItem COIL = new CoilItem(new Item.Settings().group(Gateway.GATEWAY_GROUP));
 	public static final Item RECOVERY_ORDER = new Item(new Item.Settings().group(Gateway.GATEWAY_GROUP));
 	public static final WaterGunItem WATER_GUN = new WaterGunItem(new Item.Settings().group(Gateway.GATEWAY_GROUP));

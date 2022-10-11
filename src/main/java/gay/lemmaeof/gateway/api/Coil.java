@@ -1,5 +1,10 @@
 package gay.lemmaeof.gateway.api;
 
+import javax.annotation.Nullable;
+
+import net.minecraft.entity.Entity;
+import net.minecraft.world.World;
+
 /**
  * a coil
  */
@@ -19,9 +24,15 @@ public interface Coil {
 
 	int getHeat();
 
+	boolean isCharged();
+
 	/**
 	 * @return the {@link CoilType} type of this coil, which determines decay rate
 	 */
 	CoilType getType();
 
+	//TODO: figure out make-up ticks
+	void tick(World world, @Nullable Entity user);
+
+	void use(World world, @Nullable Entity user);
 }

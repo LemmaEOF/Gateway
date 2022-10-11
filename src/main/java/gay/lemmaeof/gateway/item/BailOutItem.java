@@ -1,8 +1,10 @@
 package gay.lemmaeof.gateway.item;
 
-import gay.lemmaeof.gateway.api.TriggerItem;
+import gay.lemmaeof.gateway.api.TriggerShifter;
 import gay.lemmaeof.gateway.api.TrionComponent;
 import gay.lemmaeof.gateway.init.GatewayComponents;
+
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -14,7 +16,7 @@ import net.minecraft.util.UseAction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class BailOutItem extends Item implements TriggerItem {
+public class BailOutItem extends Item implements TriggerShifter {
 	public BailOutItem(Settings settings) {
 		super(settings);
 	}
@@ -54,5 +56,10 @@ public class BailOutItem extends Item implements TriggerItem {
 			}
 		}
 		return stack;
+	}
+
+	@Override
+	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
+		entityInventoryTick(stack, world, entity, slot, selected);
 	}
 }

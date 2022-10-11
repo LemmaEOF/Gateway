@@ -1,7 +1,7 @@
 package gay.lemmaeof.gateway.mixin;
 
 import gay.lemmaeof.gateway.api.TrionComponent;
-import gay.lemmaeof.gateway.combat.TrionDamageSource;
+import gay.lemmaeof.gateway.hooks.CustomDamageSource;
 import gay.lemmaeof.gateway.init.GatewayComponents;
 import gay.lemmaeof.gateway.init.GatewayEntities;
 import net.minecraft.entity.Entity;
@@ -20,14 +20,14 @@ public class MixinDamageSource {
 	private static void injectTrionDamageSource(PlayerEntity attacker, CallbackInfoReturnable<DamageSource> info) {
 		TrionComponent comp = GatewayComponents.TRION.get(attacker);
 		if (comp.isTriggerActive()) {
-			info.setReturnValue(new TrionDamageSource("trion", attacker));
+			info.setReturnValue(new CustomDamageSource("trion", attacker));
 		}
 	}
 
 	@Inject(method = "arrow", at = @At("HEAD"), cancellable = true)
 	private static void injectTrionDamageSource(PersistentProjectileEntity projectile, Entity attacker, CallbackInfoReturnable<DamageSource> info) {
 		if (projectile.getType() == GatewayEntities.TRION_PROJECTILE) {
-			info.setReturnValue(new TrionDamageSource("trion", attacker)); //TODO: trion projectile damage source?
+			info.setReturnValue(new CustomDamageSource("trion", attacker)); //TODO: trion projectile damage source?
 		}
 	}
 }
