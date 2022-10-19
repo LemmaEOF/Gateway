@@ -8,7 +8,8 @@
     "MixinEntity",
     "MixinItemStack",
     "MixinPlayerEntity",
-    "MixinSlot"
+    "MixinSlot",
+    "PersistentProjectileEntityAccessor"
   ],
   "client": [
     "MixinPlayerEntityRenderer"
